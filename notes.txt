@@ -1,0 +1,7 @@
+Features to implement:
+1. events near me
+2. events near me about to happen
+3. friends events
+4. stores open now
+5. add event (for friends)
+
