@@ -40,7 +40,10 @@
 
   <div id="left" style="float:left; width:30%;">
 
+  <!-- Form creation -->
+  <form id="hiddenSubmit">
 
+  </form>
 <!-- FB Login Button --> 
       <script>
         // This is called with the results from from FB.getLoginStatus().
@@ -115,12 +118,61 @@
         // successful.  See statusChangeCallback() for when this call is made.
         function testAPI() {
           console.log('Welcome!  Fetching your information.... ');
+
           FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
             document.getElementById('status').innerHTML =
               'Thanks for logging in, ' + response.name + '!';
+              var form = document.getElementById("hiddenSubmit");
+              FB.api("/me/events", function (response) {
+            if (response && !response.error) {
+              var a = response.data;
+              var event_name = "";
+              var event_latitude = "";
+              var event_longitude = "";
+              var event_start_time = "";
+              var event_end_time = "";
+              var event_category = "";
+              var eventGroup = [];
+              for (i=0; i<a.length; i++) {
+                if (a[i].description.includes("food") | a[i].description.includes("Food"))
+                  event_category = "food";
+                if (a[i].name)
+                  event_name = a[i].name;
+                if (a[i].place.hasOwnProperty('location')) {
+                  if(a[i].place.location.hasOwnProperty('latitude'))
+                    event_latitude = (String)(a[i].place.location.latitude);
+                  if (a[i].place.location.hasOwnProperty('longitude'))
+                    event_longitude = (String)(a[i].place.location.longitude);
+                }
+                if (a[i].hasOwnProperty('start_time'))
+                  event_start_time = (String)(a[i].start_time);
+                if (a[i].hasOwnProperty('end_time'))
+                  event_end_time = (String)(a[i].end_time);
+                var eventEntry = {
+                  "name": event_name,
+                  "location_latitude": event_latitude,
+                  "location_longitude": event_longitude,
+                  "start_time": event_start_time,
+                  "end_time": event_end_time,
+                  "category": event_category
+                }
+                eventGroup.push(eventEntry);
+              }
+              $.post("/jeo/processData", {eventData: JSON.stringify(eventGroup)}, function(data) {
+                  console.log(data)
+                });
+            }
+            
+          }
+
+          );
           });
         }
+
+
+        // Get events
+
       </script>
 
 <!--
