@@ -1,8 +1,10 @@
 <html>
 {% load staticfiles %}
- <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
- <script src="{% static 'js/jquery.js' %}"></script>
- <script src="{% static 'js/map.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/usability.js' %}"></script>
+  <script src="{% static 'js/map.js' %}"></script>
+
 
 <body>
 <!-- FB API setup-->
@@ -194,18 +196,20 @@
       data-width="450"
       data-show-faces="true">
     </div>   -->
-      This is left panel <br>
+      <br>This is left panel <br>
       <button type="button">Events Near Me</button><br>
       <button type="button">Events Starting Soon</button><br>
       <button type="button">Events Friends are Attending</button><br>
       <button type="button">Establishments Open Now</button><br>
-      <button type="button">Add Event</button><br>
+      <button type="button">Add Event</button><br><br>
+      <button type="button" onclick="fbLogoutUser()">Logout</button><br>
    </div>   
   <div id="map"></div>                  
   </div>
 
   <!-- Google Maps API -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZgwRm00wdhT5bRZ6N8ydEqAkJCLKyj8&callback=myMap" type="text/javascript"></script>
+  
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZgwRm00wdhT5bRZ6N8ydEqAkJCLKyj8&libraries=places&callback=myMap" type="text/javascript"></script>
   <!-- /Google Maps API -->
 </body>
 </html>
