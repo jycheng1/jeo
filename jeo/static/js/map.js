@@ -14,17 +14,19 @@ function myMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
      locationCenter = position.coords.latitude, position.coords.longitude;
-     console.log(locationCenter);
+     // console.log(locationCenter);
      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
      map.setCenter(initialLocation);
      infowindow = new google.maps.InfoWindow();
-    console.log(map.getCenter().toString());
+    // console.log(map.getCenter().toString());
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     openNow: true,
     location: initialLocation,
     radius: 500,
     type: 'bakery',
+    language: 'en',
+
   }, callback);
 
   service.nearbySearch({
@@ -32,6 +34,7 @@ function myMap() {
     location: initialLocation,
     radius: 500,
     type: 'restauraunt',
+    language: 'en',
   }, callback);
 
     service.nearbySearch({
@@ -39,40 +42,41 @@ function myMap() {
     location: initialLocation,
     radius: 500,
     type: 'store',
+    language: 'en',
   }, callback);
 
   });
   }
   else{
       var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    openNow: true,
-    location: initialLocation,
-    radius: 500,
-    type: 'bakery',
-  }, callback);
-
-  service.nearbySearch({
-    openNow: true,
-    location: initialLocation,
-    radius: 500,
-    type: 'restauraunt',
-  }, callback);
+      service.nearbySearch({
+      openNow: true,
+      location: initialLocation,
+      radius: 500,
+      type: 'bakery',
+      language: 'en',
+    }, callback);
 
     service.nearbySearch({
-    openNow: true,
-    location: initialLocation,
-    radius: 500,
-    type: 'store',
-  }, callback);
+      openNow: true,
+      location: initialLocation,
+      radius: 500,
+      type: 'restauraunt',
+      language: 'en',
+
+    }, callback);
+
+      service.nearbySearch({
+      openNow: true,
+      location: initialLocation,
+      radius: 500,
+      type: 'store',
+      language: 'en',
+    }, callback);
   }
 
 
      // });
-
-
-  
-
   
 }
 
@@ -84,14 +88,36 @@ function myMap() {
         }
       }
 
+
+      var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var icons = {
+          parking: {
+            icon: iconBase + 'parking_lot_maps.png'
+          },
+          library: {
+            icon: iconBase + 'library_maps.png'
+          },
+          info: {
+            icon: iconBase + 'info-i_maps.png'
+          }
+        };
+
+
+
+
       function createMarker(place) {
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
           map: map,
+          // icon: icons[place.type].icon,
           position: place.geometry.location
         });
 
-        google.maps.event.addListener(marker, 'click', function() {
+        // var infoWindow = new google.maps.InfoWindow({
+        //   content: "place.weekday_text"
+        // });
+
+        google.maps.event.addListener(marker, 'mouseover', function() {
           infowindow.setContent(place.name);
           infowindow.open(map, this);
         });
