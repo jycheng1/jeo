@@ -1,4 +1,9 @@
 <html>
+{% load staticfiles %}
+ <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+ <script src="{% static 'js/jquery.js' %}"></script>
+ <script src="{% static 'js/map.js' %}"></script>
+
 <body>
   <div id="container" style="width:100%;">                                   
   <div id="left" style="float:left; width:30%;">
@@ -8,8 +13,11 @@
       <button type="button">Events Friends are Attending</button><br>
       <button type="button">Establishments Open Now</button><br>
       <button type="button">Add Event</button><br>
-   </div>                     
-  <div id="right" style="float:right; width:70%;"> This is right panel </div>                   
+   </div>   
+  <div id="map"></div>                  
+  <!-- <div id="right" style="float:right; width:70%;"> This is right panel </div>                    -->
 </div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZgwRm00wdhT5bRZ6N8ydEqAkJCLKyj8&callback=myMap" type="text/javascript"></script>
 </body>
 </html>
