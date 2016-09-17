@@ -5,8 +5,35 @@
  <script src="{% static 'js/map.js' %}"></script>
 
 <body>
-  <div id="container" style="width:100%;">                                   
+<!-- FB API -->
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : 870715526398323,
+        xfbml      : true,
+        version    : 'v2.7'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
+  <div id="container" style="width:100%;">   
+
   <div id="left" style="float:left; width:30%;">
+    <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
+    </div>  
       This is left panel <br>
       <button type="button">Events Near Me</button><br>
       <button type="button">Events Starting Soon</button><br>
@@ -16,8 +43,9 @@
    </div>   
   <div id="map"></div>                  
   <!-- <div id="right" style="float:right; width:70%;"> This is right panel </div>                    -->
-</div>
+  </div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZgwRm00wdhT5bRZ6N8ydEqAkJCLKyj8&callback=myMap" type="text/javascript"></script>
+  <!-- Google Maps API -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEZgwRm00wdhT5bRZ6N8ydEqAkJCLKyj8&callback=myMap" type="text/javascript"></script>
 </body>
 </html>

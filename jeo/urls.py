@@ -11,5 +11,7 @@ from jeo import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    # url(r'^org_page$', 
+    url(r'^example$', views.example, name='example'),
 ]
 
